@@ -16,7 +16,7 @@ jobs:
     name: Build and Deploy
     strategy:
       matrix:
-        os: [windows-latest, macos-10.15, macos-11]
+        os: [windows-latest, macos-10.15]
         python-version: ['3.6', '3.7', '3.8', '3.9']
         architecture: ['x86', 'x64']
         exclude:
