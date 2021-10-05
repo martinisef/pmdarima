@@ -15,4 +15,4 @@ conda create -y --name build-env python=$PYTHON_VERSION
 conda activate build-env
 
 # Install statsmodels from conda
-conda install -c conda-forge $(cat build_tools/build_requirements.txt | grep statsmodels)
+conda install -c conda-forge --no-deps $(cat build_tools/build_requirements.txt | grep statsmodels)
