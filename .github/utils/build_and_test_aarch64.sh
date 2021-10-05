@@ -11,8 +11,8 @@ conda install --file build_tools/build_requirements.txt
 conda install --file requirements.txt
 
 # Create wheel
-make version bdist_wheel
+python setup.py bdist_hweel
 
 # Install and test
-pip install --pre --no-index --find-links dist/ pmdarima
-pytest --showlocals --durations=20 --pyargs pmdarima --benchmark-skip
+python -m pip install --pre --no-index --find-links dist/ pmdarima
+python -m pytest --showlocals --durations=20 --pyargs pmdarima --benchmark-skip
