@@ -162,7 +162,7 @@ jobs:
       matrix:
         python-version: [cp37-cp37m, cp38-cp38, cp39-cp39]
     env:
-      py: /opt/python/${{ matrix.python-version }}/bin/python
+      python-path: /opt/python/${{ matrix.python-version }}/bin/python
       image: quay.io/pypa/manylinux2014_aarch64
     defaults:
       run:
@@ -180,10 +180,4 @@ jobs:
       - name: Build and Test
         run: |
           docker run --rm -v ${{ github.workspace }}:/workspace:rw --workdir=/workspace \
-            ${{ env.image }} \
-            bash -exc ' \
-              PY_VER=$(echo ${{ matrix.python-version }} | awk -F'[^0-9]+' '{ print $2 }') && \
-              curl -s https://repo.anaconda.com/miniconda/Miniconda3-py${PY_VER}_4.10.3-Linux-aarch64.sh | /bin/bash && \
-              conda --version && \
-              deactivate \
-            '
+            ${{ env.image }} ${GITHUB_WORKSPACE}/.github/utils/build_aarch64.sh ${{ matrix.python-version }} ${{ env.python-path }}
