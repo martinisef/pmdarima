@@ -179,11 +179,10 @@ jobs:
 
       - name: Build and Test
         run: |
-          # Extracts `37`, `38`, `39`
-          PY_VER=$(echo '${{ matrix.python-version }}' | awk -F'[^0-9]+' '{ print $2 }')
           docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
             ${{ env.image }} \
             bash -exc ' \
+              PY_VER=$(echo ${{ matrix.python-version }} | awk -F'[^0-9]+' '{ print $2 }') \
               curl -s https://repo.anaconda.com/miniconda/Miniconda3-py${PY_VER}_4.10.3-Linux-aarch64.sh | /bin/bash && \
               conda --version && \
               deactivate \
