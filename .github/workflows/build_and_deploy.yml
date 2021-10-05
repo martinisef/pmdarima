@@ -160,10 +160,9 @@ jobs:
     name: 'Build and Deploy (aarch64)'
     strategy:
       matrix:
-        python-version: [cp37-cp37m, cp38-cp38, cp39-cp39]
+        python-version: ['37', '38', '39']
     env:
-      python-path: /opt/python/${{ matrix.python-version }}/bin/python
-      image: quay.io/pypa/manylinux2014_aarch64
+      image: continuumio/miniconda3:4.10.3@074ffc2065bab83c9a5c596576656b04d271dd78406aadad160b68e38f38269f
     defaults:
       run:
         shell: bash
@@ -180,5 +179,4 @@ jobs:
       - name: Build and Test
         run: |
           chmod +x .github/utils/build_aarch64.sh
-          docker run --rm -v ${{ github.workspace }}:/workspace:rw --workdir=/workspace \
-            ${{ env.image }} .github/utils/build_aarch64.sh ${{ matrix.python-version }} ${{ env.python-path }}
+          docker run --rm -v ${{ github.workspace }}:/workspace:rw --workdir=/workspace ${{ env.image }} .github/utils/build_aarch64.sh
