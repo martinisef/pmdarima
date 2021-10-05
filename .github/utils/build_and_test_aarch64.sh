@@ -14,15 +14,5 @@ source ~/.bashrc
 conda create -y --name build-env python=$PYTHON_VERSION
 conda activate build-env
 
-# Install requirements
-conda config --add channels conda-forge
-conda install -c conda-forge "numpy>=1.19.3,<1.20" # Preinstall numpy to get right version
-conda install -y -S --strict-channel-priority --file build_tools/build_requirements.txt
-conda install -y -S --strict-channel-priority --file requirements.txt
-
-# Create wheel
-python setup.py bdist_wheel
-
-# Install and test
-pip install --pre --no-index --find-links dist/ pmdarima
-python -m pytest --showlocals --durations=20 --pyargs pmdarima --benchmark-skip
+# Install statsmodels from conda
+conda install -c conda-forge $(cat build_tools/build_requirements.txt | grep statsmodels)
