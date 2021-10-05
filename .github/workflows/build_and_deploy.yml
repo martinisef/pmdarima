@@ -16,7 +16,7 @@ jobs:
     name: Build and Deploy
     strategy:
       matrix:
-        os: [windows-latest, macos-latest]
+        os: [windows-latest, macos-10.15, macos-11]
         python-version: ['3.6', '3.7', '3.8', '3.9']
         architecture: ['x86', 'x64']
         exclude:
@@ -155,3 +155,36 @@ jobs:
         env:
           TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
           TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
+
+  build-and-deploy-aarch64:
+    name: 'Build and Deploy (aarch64)'
+    strategy:
+      matrix:
+        python-version: [cp37-cp37m, cp38-cp38, cp39-cp39]
+    env:
+      py: /opt/python/${{ matrix.python-version }}/bin/python
+      image: quay.io/pypa/manylinux2014_aarch64
+    defaults:
+      run:
+        shell: bash
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Build and Test
+        run: |
+          # Extracts `37`, `38`, `39`
+          PY_VER=$(echo ${{ matrix.python-version }} | awk -F'[^0-9]+' '{ print $2 }')
+          docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
+            ${{ env.image }} \
+            bash -exc ' \
+              curl -s https://repo.anaconda.com/miniconda/Miniconda3-py${PY_VER}_4.10.3-Linux-aarch64.sh | /bin/bash && \
+              conda --version && \
+              deactivate \
+            '
