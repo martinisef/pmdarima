@@ -180,4 +180,4 @@ jobs:
       - name: Build and Test
         run: |
           docker run --rm -v ${{ github.workspace }}:/workspace:rw --workdir=/workspace \
-            ${{ env.image }} ${GITHUB_WORKSPACE}/.github/utils/build_aarch64.sh ${{ matrix.python-version }} ${{ env.python-path }}
+            ${{ env.image }} .github/utils/build_aarch64.sh ${{ matrix.python-version }} ${{ env.python-path }}
