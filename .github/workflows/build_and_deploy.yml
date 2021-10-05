@@ -162,7 +162,7 @@ jobs:
       matrix:
         python-version: ['37', '38', '39']
     env:
-      image: continuumio/miniconda3:4.10.3@074ffc2065bab83c9a5c596576656b04d271dd78406aadad160b68e38f38269f
+      image: continuumio/miniconda3@sha256:59aeaac73f2d5998475c594d33241ff6f9a92f4bdc24c4a183785ba7651f339f
     defaults:
       run:
         shell: bash
