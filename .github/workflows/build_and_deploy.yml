@@ -178,6 +178,6 @@ jobs:
 
       - name: Build and Test
         run: |
-          chmod +x .github/utils/build_aarch64.sh
+          chmod +x .github/utils/build_and_test_aarch64.sh
           docker run --rm -v ${{ github.workspace }}:/workspace:rw --workdir=/workspace \
             ${{ env.image }} .github/utils/build_and_test_aarch64.sh ${{ matrix.python-version }}
