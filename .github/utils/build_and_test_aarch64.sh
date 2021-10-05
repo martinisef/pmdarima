@@ -11,7 +11,7 @@ conda install --file build_tools/build_requirements.txt
 conda install --freeze-installed --file requirements.txt
 
 # Create wheel
-python setup.py bdist_hweel
+python setup.py bdist_wheel
 
 # Install and test
 pip install --pre --no-index --find-links dist/ pmdarima
