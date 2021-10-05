@@ -14,6 +14,7 @@ conda create -y --name build-env python=$PYTHON_VERSION
 conda activate build-env
 
 # Install requirements
+conda config --add channels conda-forge
 conda install -y --file build_tools/build_requirements.txt
 conda install -y --freeze-installed --file requirements.txt
 
