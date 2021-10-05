@@ -160,7 +160,7 @@ jobs:
     name: 'Build and Deploy (aarch64)'
     strategy:
       matrix:
-        python-version: ['37', '38', '39']
+        python-version: ['3.6', '3.7', '3.8', '3.9']
     env:
       image: continuumio/miniconda3@sha256:59aeaac73f2d5998475c594d33241ff6f9a92f4bdc24c4a183785ba7651f339f
     defaults:
@@ -179,4 +179,5 @@ jobs:
       - name: Build and Test
         run: |
           chmod +x .github/utils/build_aarch64.sh
-          docker run --rm -v ${{ github.workspace }}:/workspace:rw --workdir=/workspace ${{ env.image }} .github/utils/build_aarch64.sh
+          docker run --rm -v ${{ github.workspace }}:/workspace:rw --workdir=/workspace \
+            ${{ env.image }} .github/utils/build_and_test_aarch64.sh ${{ matrix.python-version }}
