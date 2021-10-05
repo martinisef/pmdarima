@@ -176,9 +176,13 @@ jobs:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
 
+      # Without "setup-python" this will default to 3.8
+      # Circumvent `make version` because it also installs requirements we don't need
+      - name: Write VERSION file
+        run: python build_tools/get_tag.py
+
       - name: Build and Test
         run: |
           chmod +x .github/utils/build_and_test_aarch64.sh
-          make version
           docker run --rm -v ${{ github.workspace }}:/workspace:rw --workdir=/workspace \
             ${{ env.image }} .github/utils/build_and_test_aarch64.sh ${{ matrix.python-version }}

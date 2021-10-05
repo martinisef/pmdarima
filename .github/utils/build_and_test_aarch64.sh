@@ -2,6 +2,10 @@
 
 PYTHON_VERSION=$1
 
+# Make sure we have gcc installed
+apt-get update
+apt-get install -y build-essential
+
 # Create env
 conda create --name build-env --python=$PYTHON_VERSION -y
 conda activate build-env
