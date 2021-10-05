@@ -7,8 +7,8 @@ conda create --name build-env --python=$PYTHON_VERSION -y
 conda activate build-env
 
 # Install requirements
-pip install -r build_tools/build_requirements.txt
-pip install -r requirements.txt
+conda install --file build_tools/build_requirements.txt
+conda install --freeze-installed --file requirements.txt
 
 # Create wheel
 python setup.py bdist_hweel
